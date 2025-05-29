@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void texto(FILE *stream) {
+    int x, y;
+    char texto[100];
+    char cor[20];
+    int tamanho;
+
+    printf("Digite a coordenada x do texto: ");
+    scanf("%d", &x);
+
+    printf("Digite a coordenada y do texto: ");
+    scanf("%d", &y);
+
+    printf("Digite o texto: ");
+    scanf(" %[^\n]", texto);
+
+    printf("Digite a cor do texto (ex: red, blue, green): ");
+    scanf("%s", cor);
+
+    printf("Digite o tamanho da fonte: ");
+    scanf("%d", &tamanho);
+
+    fprintf(stream, "<text x=\"%d\" y=\"%d\" fill=\"%s\" font-size=\"%d\">%s</text>\n", x, y, cor, tamanho, texto);
+}

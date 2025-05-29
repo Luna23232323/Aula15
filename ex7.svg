@@ -1,0 +1,131 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Funções definidas anteriormente
+void retangulo(FILE *stream) {
+    int x, y, width, height;
+    char cor[20];
+
+    printf("Digite a posição x do retângulo: ");
+    scanf("%d", &x);
+
+    printf("Digite a posição y do retângulo: ");
+    scanf("%d", &y);
+
+    printf("Digite a largura do retângulo: ");
+    scanf("%d", &width);
+
+    printf("Digite a altura do retângulo: ");
+    scanf("%d", &height);
+
+    printf("Digite a cor do retângulo (ex: red, blue, green): ");
+    scanf("%s", cor);
+
+    fprintf(stream, "<rect x=\"%d\" y=\"%d\" width=\"%d\" height=\"%d\" fill=\"%s\" />\n", x, y, width, height, cor);
+}
+
+void circulo(FILE *stream) {
+    int cx, cy, r;
+    char cor[20];
+
+    printf("Digite a coordenada x do centro do círculo: ");
+    scanf("%d", &cx);
+
+    printf("Digite a coordenada y do centro do círculo: ");
+    scanf("%d", &cy);
+
+    printf("Digite o raio do círculo: ");
+    scanf("%d", &r);
+
+    printf("Digite a cor do círculo (ex: red, blue, green): ");
+    scanf("%s", cor);
+
+    fprintf(stream, "<circle cx=\"%d\" cy=\"%d\" r=\"%d\" fill=\"%s\" />\n", cx, cy, r, cor);
+}
+
+void linha(FILE *stream) {
+    int x1, y1, x2, y2;
+    char cor[20];
+    int largura;
+
+    printf("Digite a coordenada x do ponto inicial da linha: ");
+    scanf("%d", &x1);
+
+    printf("Digite a coordenada y do ponto inicial da linha: ");
+    scanf("%d", &y1);
+
+    printf("Digite a coordenada x do ponto final da linha: ");
+    scanf("%d", &x2);
+
+    printf("Digite a coordenada y do ponto final da linha: ");
+    scanf("%d", &y2);
+
+    printf("Digite a cor da linha (ex: red, blue, green): ");
+    scanf("%s", cor);
+
+    printf("Digite a largura da linha: ");
+    scanf("%d", &largura);
+
+    fprintf(stream, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"%s\" stroke-width=\"%d\" />\n", x1, y1, x2, y2, cor, largura);
+}
+
+void texto(FILE *stream) {
+    int x, y;
+    char texto[100];
+    char cor[20];
+    int tamanho;
+
+    printf("Digite a coordenada x do texto: ");
+    scanf("%d", &x);
+
+    printf("Digite a coordenada y do texto: ");
+    scanf("%d", &y);
+
+    printf("Digite o texto: ");
+    scanf(" %[^\n]", texto);
+
+    printf("Digite a cor do texto (ex: red, blue, green): ");
+    scanf("%s", cor);
+
+    printf("Digite o tamanho da fonte: ");
+    scanf("%d", &tamanho);
+
+    fprintf(stream, "<text x=\"%d\" y=\"%d\" fill=\"%s\" font-size=\"%d\">%s</text>\n", x, y, cor, tamanho, texto);
+}
+
+int main() {
+    char nome_arquivo[100];
+    printf("Digite o nome do arquivo SVG: ");
+    scanf("%s", nome_arquivo);
+
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo\n");
+        return 1;
+    }
+
+    fprintf(arquivo, "<svg version=\"1.1\" width=\"800\" height=\"600\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+
+    while (1) {
+        printf("1. Retângulo\n");
+        printf("2. Círculo\n");
+        printf("3. Linha\n");
+        printf("4. Texto\n");
+        printf("F. Finalizar\n");
+
+        char opcao;
+        printf("Digite a opção: ");
+        scanf(" %c", &opcao);
+
+        switch (opcao) {
+            case '1':
+                retangulo(arquivo);
+                break;
+            case '2':
+                circulo(arquivo);
+                break;
+            case '3':
+                linha(arquivo);
+                break;
+            case '4':
+                texto(arquivo);
